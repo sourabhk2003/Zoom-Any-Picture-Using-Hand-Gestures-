@@ -18,6 +18,7 @@ if img1 is None:
 startDis = None
 scale = 0
 cx, cy = 200, 200
+max_scale = 500  # Set a cap for maximum zoom (optional)
 
 while True:
     success, img = cap.read()
@@ -37,7 +38,8 @@ while True:
                 startDis = length
 
             length, info, img = detector.findDistance(hand1["center"], hand2["center"], img)
-            scale = int((length - startDis) // 2)
+            scale = int((length - startDis) * 1.5)  # More sensitive zoom
+            scale = max(min(scale, max_scale), -300)  # Clamp scale to avoid too much zoom
             cx, cy = info[4:]
 
     else:
@@ -56,7 +58,9 @@ while True:
         resized_crop = resized_img[0:bottom - top, 0:right - left]
         img[top:bottom, left:right] = resized_crop
 
-    except:
+    except Exception as e:
+        # You can uncomment this to debug
+        # print(f"Zoom error: {e}")
         pass
 
     cv2.imshow("Gesture Zoom Viewer", img)
