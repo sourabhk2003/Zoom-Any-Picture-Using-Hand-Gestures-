@@ -18,20 +18,22 @@ pip install mediapipe==0.8.3.1
 ```
     
 ## Deployment
-
-To deploy this project run
-
-```bash
-# Please Subscribe my youtube channel "@problemsolvewithridoy"
-
 import cv2
 from cvzone.HandTrackingModule import HandDetector
 
+# Initialize webcam
 cap = cv2.VideoCapture(0)
 cap.set(3, 1280)
 cap.set(4, 720)
 
+# Initialize hand detector
 detector = HandDetector(detectionCon=0.7)
+
+# Load image once
+img1 = cv2.imread("one.jpg")
+if img1 is None:
+    print("Error: Image 'one.jpg' not found.")
+    exit()
 
 startDis = None
 scale = 0
@@ -39,67 +41,64 @@ cx, cy = 200, 200
 
 while True:
     success, img = cap.read()
+    if not success:
+        break
+
     hands, img = detector.findHands(img)
-    
-    img1 = cv2.imread("one.jpg") # write your picture file name
 
     if len(hands) == 2:
-        # print("Zoom Gesture")
-        # print(detector.fingersUp(hands[0]), detector.fingersUp(hands[1]))
-        hand1 = hands[0]
-        hand2 = hands[1]
+        hand1, hand2 = hands[0], hands[1]
+        f1, f2 = detector.fingersUp(hand1), detector.fingersUp(hand2)
+        print("Hand1:", f1, "Hand2:", f2)  # Debug
 
-        hand1_fingers = detector.fingersUp(hands[0])
-        hand2_fingers = detector.fingersUp(hands[1])
-
-        if hand1_fingers == [1,1,0,0,0] and hand2_fingers == [1,1,0,0,0]:
-            lmList1 = hand1["lmList"]
-            lmList2 = hand2["lmList"]
-
+        if f1 == [1, 1, 1, 1, 1] and f2 == [1, 1, 1, 1, 1]:
             if startDis is None:
-                # length, info, img = detector.findDistance(lmList1[8], lmList2[8], img)
                 length, info, img = detector.findDistance(hand1["center"], hand2["center"], img)
-                # print(length)
                 startDis = length
 
-            # length, info, img = detector.findDistance(lmList1[8], lmList2[8], img)
             length, info, img = detector.findDistance(hand1["center"], hand2["center"], img)
-            scale = int((length - startDis)//2)
+            scale = int((length - startDis) // 2)
             cx, cy = info[4:]
-            # print(scale)
 
     else:
         startDis = None
-    
+
     try:
         h1, w1, _ = img1.shape
-        newH, newW = ((h1 + scale)//2)*2 , ((w1 + scale)//2)*2
-        img1 = cv2.resize(img1,(newH, newW))
-        img[cy - newH//2 : cy + newH//2, cx - newW//2 : cx + newW//2] = img1
-    
+        newH, newW = ((h1 + scale) // 2) * 2, ((w1 + scale) // 2) * 2
+        resized_img = cv2.resize(img1, (newW, newH))
+
+        top = max(cy - newH // 2, 0)
+        bottom = min(cy + newH // 2, img.shape[0])
+        left = max(cx - newW // 2, 0)
+        right = min(cx + newW // 2, img.shape[1])
+
+        resized_crop = resized_img[0:bottom - top, 0:right - left]
+        img[top:bottom, left:right] = resized_crop
+
     except:
         pass
-    
-    
 
-    cv2.imshow("Problem Solve with Ridoy", img)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    cv2.imshow("Gesture Zoom Viewer", img)
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord('q'):
         break
+    if key == ord('r'):
+        startDis = None
+        scale = 0
+
+cap.release()
+cv2.destroyAllWindows()
 ```
 
 ## You can follow me
 
-Facebook:- https://www.facebook.com/problemsolvewithridoy/
+Linkedin:- https://www.linkedin.com/in/sourabh-kushwah/
 
-Linkedin:- https://www.linkedin.com/in/ridoyhossain/
+YouTube:- https://www.youtube.com/@ClassicIndianreels
 
-YouTube:- https://www.youtube.com/@problemsolvewithridoy
+Gmail:-jaimahankal0786@gmail.com
 
-Gmail:- entridoy2@gmail.com
+Instagram:- https://www.instagram.com/abamahakal/
 
 If you have any confusion, please feel free to contact me. Thank you
-
-
-## License
-This script is released under the MIT License. Feel free to use, modify, and distribute it as you wish. If you find any bugs or have any suggestions for improvement, please submit an issue or a pull request on this repository.
-
