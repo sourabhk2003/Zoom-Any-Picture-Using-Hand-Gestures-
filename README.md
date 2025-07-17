@@ -52,7 +52,7 @@ while True:
         hand1_fingers = detector.fingersUp(hands[0])
         hand2_fingers = detector.fingersUp(hands[1])
 
-        if hand1_fingers == [1,1,0,0,0] and hand2_fingers == [1,1,0,0,0]:
+        if hand1_fingers == [1,1,1,1,1] and hand2_fingers == [1,1,1,1,1]:
             lmList1 = hand1["lmList"]
             lmList2 = hand2["lmList"]
 
@@ -87,15 +87,16 @@ while True:
         break
 ```
 
+
 ## You can follow me
 
-Facebook:- https://www.facebook.com/problemsolvewithridoy/
+Linkedin:- https://www.linkedin.com/in/sourabh-kushwah/
 
-Linkedin:- https://www.linkedin.com/in/ridoyhossain/
+YouTube:- https://www.youtube.com/@ClassicIndianreels
 
-YouTube:- https://www.youtube.com/@problemsolvewithridoy
+Gmail:-jaimahankal0786@gmail.com
 
-Gmail:- entridoy2@gmail.com
+Instagram:- https://www.instagram.com/abamahakal/
 
 If you have any confusion, please feel free to contact me. Thank you
 
