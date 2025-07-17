@@ -1,28 +1,29 @@
-
-# Zoom Any Picture Using Hand Gestures (python Opencv Project)
+# Zoom Any Picture Using Hand Gestures (Python OpenCV Project)
 
 This project showcases a Python application that allows you to zoom in and out of any picture using hand gestures. It utilizes the OpenCV library along with the cvzone module to detect and track hand gestures, enabling you to control the zoom level of an image effortlessly.
 
-let's start...............
+Let's start...............
 
-To make this project you need to follow this step:-
+To make this project you need to follow this step:
 
-## Installation
+---
 
-Install package with pip
+## 📦 Installation
+
+Install the required packages using pip:
 
 ```bash
 pip install cvzone==1.4.1
 pip install mediapipe==0.8.3.1
-
 ```
-    
-## Deployment
 
-To deploy this project run
+---
 
-```bash
+## 🚀 Deployment
 
+To deploy this project run:
+
+```python
 import cv2
 from cvzone.HandTrackingModule import HandDetector
 
@@ -52,23 +53,8 @@ while True:
     hands, img = detector.findHands(img)
 
     if len(hands) == 2:
-<<<<<<< patch-1
-        # print("Zoom Gesture")
-        # print(detector.fingersUp(hands[0]), detector.fingersUp(hands[1]))
-        hand1 = hands[0]
-        hand2 = hands[1]
-
-        hand1_fingers = detector.fingersUp(hands[0])
-        hand2_fingers = detector.fingersUp(hands[1])
-
-        if hand1_fingers == [1,1,1,1,1] and hand2_fingers == [1,1,1,1,1]:
-            lmList1 = hand1["lmList"]
-            lmList2 = hand2["lmList"]
-=======
         hand1, hand2 = hands[0], hands[1]
         f1, f2 = detector.fingersUp(hand1), detector.fingersUp(hand2)
-        print("Hand1:", f1, "Hand2:", f2)  # Debug
->>>>>>> main
 
         if f1 == [1, 1, 1, 1, 1] and f2 == [1, 1, 1, 1, 1]:
             if startDis is None:
@@ -110,30 +96,21 @@ cap.release()
 cv2.destroyAllWindows()
 ```
 
+---
 
-## You can follow me
+## 🙋‍♂️ You Can Follow Me
 
-<<<<<<< patch-1
-Linkedin:- https://www.linkedin.com/in/sourabh-kushwah/
+- **LinkedIn:** [https://www.linkedin.com/in/sourabh-kushwah/](https://www.linkedin.com/in/sourabh-kushwah/)
+- **YouTube:** [https://www.youtube.com/@ClassicIndianreels](https://www.youtube.com/@ClassicIndianreels)
+- **Gmail:** jaimahankal0786@gmail.com
+- **Instagram:** [https://www.instagram.com/abamahakal/](https://www.instagram.com/abamahakal/)
 
-YouTube:- https://www.youtube.com/@ClassicIndianreels
+If you have any confusion, please feel free to contact me. Thank you 🙏
 
-Gmail:-jaimahankal0786@gmail.com
+---
 
-Instagram:- https://www.instagram.com/abamahakal/
-=======
-Instagram:- https://www.instagram.com/abamahakal/
+## 📝 License
 
-Linkedin:- https://www.linkedin.com/in/sourabh-kushwah/
-
-YouTube:- https://www.youtube.com/@ClassicIndianreels
-
-Gmail:- jaimahankal0786@gmail.com
->>>>>>> main
-
-If you have any confusion, please feel free to contact me. Thank you
-
-
-## License
-This script is released under the MIT License. Feel free to use, modify, and distribute it as you wish. If you find any bugs or have any suggestions for improvement, please submit an issue or a pull request on this repository.
-
+This script is released under the **MIT License**.  
+Feel free to use, modify, and distribute it as you wish.  
+If you find any bugs or have suggestions for improvement, please submit an issue or a pull request.
